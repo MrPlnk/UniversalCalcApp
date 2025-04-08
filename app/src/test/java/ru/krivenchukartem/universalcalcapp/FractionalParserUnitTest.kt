@@ -2,10 +2,9 @@ package ru.krivenchukartem.universalcalcapp
 
 import org.junit.Test
 import ru.krivenchukartem.universalcalcapp.domain.entity.Expression
-import ru.krivenchukartem.universalcalcapp.domain.entity.NumberFractional
+import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
 import ru.krivenchukartem.universalcalcapp.domain.parsers.FractionalParser
 import org.junit.Assert.assertEquals
-import kotlin.math.exp
 
 class FractionalParserUnitTest {
     @Test

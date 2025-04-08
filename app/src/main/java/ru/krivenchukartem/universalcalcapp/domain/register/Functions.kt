@@ -1,13 +1,15 @@
 package ru.krivenchukartem.universalcalcapp.domain.register
 
-import ru.krivenchukartem.universalcalcapp.domain.entity.NumberBase
+import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
 
-interface UnaryFunction<T : NumberBase<T>> {
+sealed interface Functions<T: NumberBase<T>>{
     val name: String
+}
+
+interface UnaryFunction<T : NumberBase<T>>: Functions<T> {
     fun apply(input: T): T
 }
 
-interface BinaryFunction<T : NumberBase<T>>{
-    val name: String
+interface BinaryFunction<T : NumberBase<T>>: Functions<T>{
     fun apply(input1: T, input2: T): T
 }

@@ -1,7 +1,7 @@
 package ru.krivenchukartem.universalcalcapp.domain.parsers
 
 import ru.krivenchukartem.universalcalcapp.domain.entity.Expression
-import ru.krivenchukartem.universalcalcapp.domain.entity.NumberFractional
+import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
 
 interface BaseFractionalParser{
     fun parse(expression: String): Expression<NumberFractional>

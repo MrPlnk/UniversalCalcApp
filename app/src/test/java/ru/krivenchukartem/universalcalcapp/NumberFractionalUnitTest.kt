@@ -1,7 +1,7 @@
 package ru.krivenchukartem.universalcalcapp
 
 import org.junit.Test
-import ru.krivenchukartem.universalcalcapp.domain.entity.NumberFractional
+import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 

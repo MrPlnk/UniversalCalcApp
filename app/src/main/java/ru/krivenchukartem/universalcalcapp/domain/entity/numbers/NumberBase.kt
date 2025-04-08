@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.domain.entity
+package ru.krivenchukartem.universalcalcapp.domain.entity.numbers
 
 interface NumberBase<T : NumberBase<T>> {
     override fun toString(): String

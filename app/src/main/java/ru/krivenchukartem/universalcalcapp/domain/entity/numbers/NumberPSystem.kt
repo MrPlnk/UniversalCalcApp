@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.domain.entity
+package ru.krivenchukartem.universalcalcapp.domain.entity.numbers
 
 import ru.krivenchukartem.universalcalcapp.domain.extensions.PSystemConverter
 
