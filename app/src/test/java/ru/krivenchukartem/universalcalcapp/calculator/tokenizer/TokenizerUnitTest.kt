@@ -1,7 +1,7 @@
-package ru.krivenchukartem.universalcalcapp.parsers.tokenizer
+package ru.krivenchukartem.universalcalcapp.calculator.tokenizer
 
+import org.junit.Assert
 import org.junit.Test
-import org.junit.Assert.assertEquals
 import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.UniversalTokenizer
 
 class TokenizerUnitTest {
@@ -17,6 +17,6 @@ class TokenizerUnitTest {
             "4/7", "+", "square", "(", "4/13", "+", "3/4", ")"
         )
 
-        assertEquals(expected, result)
+        Assert.assertEquals(expected, result)
     }
 }

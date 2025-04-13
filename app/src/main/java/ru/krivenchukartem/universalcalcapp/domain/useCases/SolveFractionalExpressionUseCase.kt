@@ -2,21 +2,10 @@ package ru.krivenchukartem.universalcalcapp.domain.useCases
 
 import ru.krivenchukartem.universalcalcapp.domain.entity.expressions.Expression
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
-import ru.krivenchukartem.universalcalcapp.domain.parsers.BaseFractionalParser
 
-class SolveFractionalExpressionUseCase(private val fractionalParser: BaseFractionalParser) {
+class SolveFractionalExpressionUseCase() {
     operator fun invoke(expressionStr: String): String {
-        return execute(fractionalParser.parse(expressionStr)).toString()
+        return TODO()
     }
 
-    private fun execute(expression: Expression<NumberFractional>): NumberFractional{
-        val (a, b) = expression.numbers
-        return when (expression.action) {
-            "+" -> a + b
-            "-" -> a - b
-            "*" -> a * b
-            "/" -> a / b
-            else -> throw IllegalArgumentException("Неизвестная операция: ${expression.action}")
-        }
-    }
 }
