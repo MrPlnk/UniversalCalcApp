@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.domain.extensions
+package ru.krivenchukartem.universalcalcapp.domain.entity.numbers.extensions
 
 import kotlin.math.abs
 import kotlin.math.floor

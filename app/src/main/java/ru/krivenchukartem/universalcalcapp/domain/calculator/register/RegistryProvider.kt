@@ -1,9 +1,11 @@
-package ru.krivenchukartem.universalcalcapp.domain.register
+package ru.krivenchukartem.universalcalcapp.domain.calculator.register
 
+import ru.krivenchukartem.universalcalcapp.domain.calculator.register.NumberFunctions.FractionalReciprocal
+import ru.krivenchukartem.universalcalcapp.domain.calculator.register.NumberFunctions.StandardBinaryFunctions
+import ru.krivenchukartem.universalcalcapp.domain.calculator.register.NumberFunctions.StandardUnaryFunctions
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberComplex
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberPSystem
-import ru.krivenchukartem.universalcalcapp.domain.register.NumberFunctions.*
 
 object RegistryProvider {
     val fractionalBinaryRegistry = BinaryRegistry(

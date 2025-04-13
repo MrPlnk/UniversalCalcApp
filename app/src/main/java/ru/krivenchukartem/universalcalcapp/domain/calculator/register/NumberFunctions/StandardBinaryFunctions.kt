@@ -1,7 +1,7 @@
-package ru.krivenchukartem.universalcalcapp.domain.register.NumberFunctions
+package ru.krivenchukartem.universalcalcapp.domain.calculator.register.NumberFunctions
 
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
-import ru.krivenchukartem.universalcalcapp.domain.register.BinaryFunction
+import ru.krivenchukartem.universalcalcapp.domain.calculator.register.BinaryFunction
 
 class StandardBinaryFunctions<T : NumberBase<T>> {
     fun add() = object : BinaryFunction<T> {

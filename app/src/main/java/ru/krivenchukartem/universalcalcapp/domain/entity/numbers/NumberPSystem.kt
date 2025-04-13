@@ -1,6 +1,6 @@
 package ru.krivenchukartem.universalcalcapp.domain.entity.numbers
 
-import ru.krivenchukartem.universalcalcapp.domain.extensions.PSystemConverter
+import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.extensions.PSystemConverter
 
 data class NumberPSystem(
     private val number: String,

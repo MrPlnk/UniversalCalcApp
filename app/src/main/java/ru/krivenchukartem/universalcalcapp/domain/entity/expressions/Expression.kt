@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.domain.entity
+package ru.krivenchukartem.universalcalcapp.domain.entity.expressions
 
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
 

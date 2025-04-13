@@ -1,6 +1,6 @@
 package ru.krivenchukartem.universalcalcapp.domain.useCases
 
-import ru.krivenchukartem.universalcalcapp.domain.entity.Expression
+import ru.krivenchukartem.universalcalcapp.domain.entity.expressions.Expression
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
 import ru.krivenchukartem.universalcalcapp.domain.parsers.BaseFractionalParser
 

@@ -1,7 +1,7 @@
-package ru.krivenchukartem.universalcalcapp.domain.register.NumberFunctions
+package ru.krivenchukartem.universalcalcapp.domain.calculator.register.NumberFunctions
 
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
-import ru.krivenchukartem.universalcalcapp.domain.register.UnaryFunction
+import ru.krivenchukartem.universalcalcapp.domain.calculator.register.UnaryFunction
 
 
 object FractionalReciprocal: UnaryFunction<NumberFractional>{
