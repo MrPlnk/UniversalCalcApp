@@ -1,7 +1,7 @@
-package ru.krivenchukartem.universalcalcapp.domain.calculator.register.functions
+package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions
 
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
-import ru.krivenchukartem.universalcalcapp.domain.calculator.register.Function
+import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.Function
 
 class StandardFunctions<T : NumberBase<T>> {
     fun add() = object : Function<T> {
