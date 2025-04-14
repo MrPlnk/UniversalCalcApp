@@ -1,16 +1,16 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.processor
 
-import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.Registry
+import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions.FunctionRegistry
 import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.Token
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
 import ru.krivenchukartem.universalcalcapp.domain.errors.ProcessorExceptions
-import ru.krivenchukartem.universalcalcapp.domain.errors.RegistryExceptions
+import ru.krivenchukartem.universalcalcapp.domain.errors.FunctionRegistryExceptions
 
 interface Processor{
     fun evaluate(tokens: List<Token>): Token
 }
 
-class RPNProcessor<T: NumberBase<T>>(private val registry: Registry<T>): Processor {
+class RPNProcessor<T: NumberBase<T>>(private val functionRegistry: FunctionRegistry<T>): Processor {
 
     override fun evaluate(tokens: List<Token>): Token {
 
@@ -24,9 +24,9 @@ class RPNProcessor<T: NumberBase<T>>(private val registry: Registry<T>): Process
                 }
 
                 Token.Type.OPERATOR -> {
-                    val function = registry.getByName(token.token)
+                    val function = functionRegistry.getByName(token.token)
                     if (function == null){
-                        throw RegistryExceptions.UndefinedFunction(token.token)
+                        throw FunctionRegistryExceptions.UndefinedFunction(token.token)
                     }
                     if (function.arity > stack.size){
                         throw ProcessorExceptions.UnmatchedArguments(function.name, function.arity, stack.size)

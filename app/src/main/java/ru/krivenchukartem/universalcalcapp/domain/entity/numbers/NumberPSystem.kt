@@ -7,7 +7,13 @@ data class NumberPSystem(
     private val system: Int
 ) : NumberBase<NumberPSystem> {
 
-    override fun toString(): String = number
+    override fun toString(): String{
+        return "$number$delimiter$system"
+    }
+
+    companion object{
+        const val delimiter = ", "
+    }
 
     override fun plus(other: NumberPSystem): NumberPSystem {
         require(system == other.system) { "Операции возможны только в одинаковых системах" }

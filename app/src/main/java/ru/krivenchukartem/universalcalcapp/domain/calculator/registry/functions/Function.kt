@@ -1,7 +1,7 @@
-package ru.krivenchukartem.universalcalcapp.domain.calculator.registry
+package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions
 
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
-import ru.krivenchukartem.universalcalcapp.domain.errors.RegistryExceptions
+import ru.krivenchukartem.universalcalcapp.domain.errors.FunctionRegistryExceptions
 
 interface Function<T : NumberBase<T>> {
     val name: String
@@ -9,7 +9,7 @@ interface Function<T : NumberBase<T>> {
 
     fun apply(vararg input: T): T {
         if (arity >= 0 && input.size != arity) {
-            throw RegistryExceptions.UnmatchedArguments(name, arity, input.size)
+            throw FunctionRegistryExceptions.UnmatchedArguments(name, arity, input.size)
         }
         return applyInternal(input.toList())
     }

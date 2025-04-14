@@ -1,10 +1,10 @@
-package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions
+package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions.specific
 
+import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions.Function
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
-import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.Function
 
 
-object FractionalReciprocal: Function<NumberFractional>{
+object FractionalReciprocal: Function<NumberFractional> {
     override val name: String
         get() = "reciprocal"
 
@@ -15,4 +15,5 @@ object FractionalReciprocal: Function<NumberFractional>{
         return NumberFractional(1, 1) / input[0]
     }
 }
+
 

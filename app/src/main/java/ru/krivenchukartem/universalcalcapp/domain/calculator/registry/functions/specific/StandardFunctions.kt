@@ -1,7 +1,7 @@
-package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions
+package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions.specific
 
+import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions.Function
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
-import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.Function
 
 class StandardFunctions<T : NumberBase<T>> {
     fun add() = object : Function<T> {
@@ -32,7 +32,7 @@ class StandardFunctions<T : NumberBase<T>> {
         override fun applyInternal(input: List<T>): T = input[0] / input[1]
     }
 
-    fun square() = object : Function<T>{
+    fun square() = object : Function<T> {
         override val name: String
             get() = "square"
         override val arity: Int
