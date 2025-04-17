@@ -1,7 +1,7 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.processor
 
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions.FunctionRegistry
-import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.Token
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
 import ru.krivenchukartem.universalcalcapp.domain.errors.ProcessorExceptions
 import ru.krivenchukartem.universalcalcapp.domain.errors.FunctionRegistryExceptions
@@ -32,9 +32,9 @@ class RPNProcessor<T: NumberBase<T>>(private val functionRegistry: FunctionRegis
                         throw ProcessorExceptions.UnmatchedArguments(function.name, function.arity, stack.size)
                     }
                     val list = mutableListOf<T>()
-                    for (i in 0 until function.arity){
-                        list.add(stack.removeFirst())
-                    }
+//                    for (i in 0 until function.arity){
+//                        list.add(stack.removeFirst())
+//                    }
                     if (token.asc == Token.OperatorAssociativity.LEFT){
 
                     }

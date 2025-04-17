@@ -1,6 +1,6 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.parser
 
-import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.Token
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
 import ru.krivenchukartem.universalcalcapp.domain.errors.TokenizerExceptions
 
 object OperatorPrecedence {

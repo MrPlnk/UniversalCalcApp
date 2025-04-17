@@ -4,7 +4,7 @@ import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.Pa
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
 import ru.krivenchukartem.universalcalcapp.domain.errors.ParserRegistryExceptions
 
-object FractionalParser: Parser {
+object FractionalParser: Parser<NumberFractional> {
     override val name: String
         get() = "fractional"
 

@@ -5,7 +5,7 @@ import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractiona
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberPSystem
 import ru.krivenchukartem.universalcalcapp.domain.errors.ParserRegistryExceptions
 
-object PSystemParser: Parser{
+object PSystemParser: Parser<NumberPSystem>{
     override val name: String
         get() = "pSystem"
 

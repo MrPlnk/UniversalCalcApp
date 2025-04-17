@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.domain.calculator.parser
+package ru.krivenchukartem.universalcalcapp.domain.calculator.common.models
 
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
 import ru.krivenchukartem.universalcalcapp.domain.errors.TokenizerExceptions

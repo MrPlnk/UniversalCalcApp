@@ -2,7 +2,6 @@ package ru.krivenchukartem.universalcalcapp.calculator.parser
 
 import org.junit.Test
 import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.RPN
-import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.Token
 import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.UniversalTokenizer
 import kotlin.test.assertEquals
 

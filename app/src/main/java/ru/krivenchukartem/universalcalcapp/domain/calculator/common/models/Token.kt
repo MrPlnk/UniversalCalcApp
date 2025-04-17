@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer
+package ru.krivenchukartem.universalcalcapp.domain.calculator.common.models
 
 import ru.krivenchukartem.universalcalcapp.domain.errors.TokenizerExceptions
 

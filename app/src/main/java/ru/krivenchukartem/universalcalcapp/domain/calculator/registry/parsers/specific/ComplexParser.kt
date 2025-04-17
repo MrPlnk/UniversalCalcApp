@@ -4,7 +4,7 @@ import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.Pa
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberComplex
 import ru.krivenchukartem.universalcalcapp.domain.errors.ParserRegistryExceptions
 
-object ComplexParser: Parser {
+object ComplexParser: Parser<NumberComplex> {
     override val name: String
         get() = "complex"
 
