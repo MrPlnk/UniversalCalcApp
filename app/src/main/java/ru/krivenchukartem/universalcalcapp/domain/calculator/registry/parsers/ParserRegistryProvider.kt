@@ -5,7 +5,7 @@ import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.sp
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.PSystemParser
 
 object ParserRegistryProvider {
-    val parsers = ParserRegistry(
+    val parsers = NameParserRegistry(
         listOf(ComplexParser, FractionalParser, PSystemParser)
     )
 }

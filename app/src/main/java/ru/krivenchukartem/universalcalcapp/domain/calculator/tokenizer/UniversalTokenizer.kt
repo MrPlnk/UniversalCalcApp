@@ -1,5 +1,6 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer
 
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
 import ru.krivenchukartem.universalcalcapp.domain.errors.TokenizerExceptions
 
 enum class States {

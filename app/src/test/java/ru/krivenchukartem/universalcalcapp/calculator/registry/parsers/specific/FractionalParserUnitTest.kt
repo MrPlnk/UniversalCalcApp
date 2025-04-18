@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.calculator.registry.parsers.cpecific
+package ru.krivenchukartem.universalcalcapp.calculator.registry.parsers.specific
 
 import org.junit.Test
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.FractionalParser

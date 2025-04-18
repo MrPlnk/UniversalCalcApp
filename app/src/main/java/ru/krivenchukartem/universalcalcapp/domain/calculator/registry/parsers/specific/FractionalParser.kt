@@ -1,5 +1,6 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific
 
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.Parser
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
 import ru.krivenchukartem.universalcalcapp.domain.errors.ParserRegistryExceptions
@@ -7,6 +8,10 @@ import ru.krivenchukartem.universalcalcapp.domain.errors.ParserRegistryException
 object FractionalParser: Parser<NumberFractional> {
     override val name: String
         get() = "fractional"
+
+    override val supportedTokenType: Token.Type
+        get() = Token.Type.FRACTIONAL_LITERAL
+
 
     override fun parse(literal: String): NumberFractional {
         val parts = literal.split(NumberFractional.delimiter)

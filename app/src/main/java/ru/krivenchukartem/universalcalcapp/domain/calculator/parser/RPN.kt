@@ -5,11 +5,11 @@ import ru.krivenchukartem.universalcalcapp.domain.errors.AppException
 import ru.krivenchukartem.universalcalcapp.domain.errors.TokenizerExceptions
 
 interface BaseRPN{
-    fun toPRN(tokens: List<Token>): List<Token>
+    fun toRPN(tokens: List<Token>): List<Token>
 }
 
 class RPN: BaseRPN {
-    override fun toPRN(tokens: List<Token>): List<Token> {
+    override fun toRPN(tokens: List<Token>): List<Token> {
         val output = mutableListOf<Token>()
         val stack = ArrayDeque(listOf<Token>())
 

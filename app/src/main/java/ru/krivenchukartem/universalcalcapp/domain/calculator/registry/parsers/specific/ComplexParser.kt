@@ -1,5 +1,6 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific
 
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.Parser
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberComplex
 import ru.krivenchukartem.universalcalcapp.domain.errors.ParserRegistryExceptions
@@ -7,6 +8,9 @@ import ru.krivenchukartem.universalcalcapp.domain.errors.ParserRegistryException
 object ComplexParser: Parser<NumberComplex> {
     override val name: String
         get() = "complex"
+
+    override val supportedTokenType: Token.Type
+        get() = Token.Type.COMPLEX_LITERAL
 
     override fun parse(literal: String): NumberComplex {
         val parts: List<String>
