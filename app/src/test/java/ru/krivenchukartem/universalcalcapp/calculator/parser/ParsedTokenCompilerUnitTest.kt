@@ -30,15 +30,12 @@ class ParsedTokenCompilerUnitTest {
         )
         val result = tokenCompiler.compile(tokens)
         val expected = listOf(
-            ParsedToken("4/7", ParsedToken.Type.FRACTIONAL_LITERAL, ParsedToken.OperatorAssociativity.NONE,
-                NumberFractional(4, 7)),
-            ParsedToken("4/13", ParsedToken.Type.FRACTIONAL_LITERAL, ParsedToken.OperatorAssociativity.NONE,
-                NumberFractional(4, 13)),
-            ParsedToken("3/4", ParsedToken.Type.FRACTIONAL_LITERAL, ParsedToken.OperatorAssociativity.NONE,
-                NumberFractional(3, 4)),
-            ParsedToken("+", ParsedToken.Type.OPERATOR, ParsedToken.OperatorAssociativity.LEFT),
-            ParsedToken("square", ParsedToken.Type.FUNCTION, ParsedToken.OperatorAssociativity.NONE),
-            ParsedToken("+", ParsedToken.Type.OPERATOR, ParsedToken.OperatorAssociativity.LEFT),
+            ParsedToken("4/7", ParsedToken.Type.LITERAL, NumberFractional(4, 7)),
+            ParsedToken("4/13", ParsedToken.Type.LITERAL, NumberFractional(4, 13)),
+            ParsedToken("3/4", ParsedToken.Type.LITERAL, NumberFractional(3, 4)),
+            ParsedToken("+", ParsedToken.Type.OPERATOR),
+            ParsedToken("square", ParsedToken.Type.FUNCTION),
+            ParsedToken("+", ParsedToken.Type.OPERATOR),
         )
         assertEquals(expected, result)
     }

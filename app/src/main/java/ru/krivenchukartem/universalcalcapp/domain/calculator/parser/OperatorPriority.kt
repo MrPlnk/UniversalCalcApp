@@ -1,7 +1,7 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.parser
 
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
-import ru.krivenchukartem.universalcalcapp.domain.errors.TokenizerExceptions
+import ru.krivenchukartem.universalcalcapp.domain.errors.AppException.TokenizerExceptions
 
 object OperatorPrecedence {
     private val precedence = mapOf(

@@ -1,8 +1,7 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.parser
 
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
-import ru.krivenchukartem.universalcalcapp.domain.errors.AppException
-import ru.krivenchukartem.universalcalcapp.domain.errors.TokenizerExceptions
+import ru.krivenchukartem.universalcalcapp.domain.errors.AppException.ParserException
 
 interface BaseRPN{
     fun toRPN(tokens: List<Token>): List<Token>
@@ -48,7 +47,7 @@ class RPN: BaseRPN {
                         output += stack.removeFirst()
                     }
                     if (stack.isEmpty() || stack.first().type != Token.Type.L_PARENTHESIS){
-                        throw TokenizerExceptions.UnmatchedParenthesis("")
+                        throw ParserException.UnmatchedParenthesis()
                     }
                     stack.removeFirst()
                     if (stack.isNotEmpty() && stack.first().type == Token.Type.FUNCTION) {
@@ -61,7 +60,7 @@ class RPN: BaseRPN {
                         output += stack.removeFirst()
                     }
                     if (stack.isEmpty() || stack.first().type != Token.Type.L_PARENTHESIS){
-                        throw AppException()
+                        throw ParserException.SeparatorWithoutArgument()
                     }
                 }
             }
@@ -70,7 +69,7 @@ class RPN: BaseRPN {
         while (stack.isNotEmpty()) {
             val top = stack.removeFirst()
             if (top.type == Token.Type.L_PARENTHESIS || top.type == Token.Type.R_PARENTHESIS) {
-                throw TokenizerExceptions.UnmatchedParenthesis("")
+                throw ParserException.UnmatchedParenthesis("")
             }
             output += top
         }

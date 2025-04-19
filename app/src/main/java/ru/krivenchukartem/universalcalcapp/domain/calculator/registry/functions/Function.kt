@@ -1,7 +1,7 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions
 
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
-import ru.krivenchukartem.universalcalcapp.domain.errors.FunctionRegistryExceptions
+import ru.krivenchukartem.universalcalcapp.domain.errors.AppException.FunctionRegistryExceptions
 
 interface Function<T : NumberBase<T>> {
     val name: String

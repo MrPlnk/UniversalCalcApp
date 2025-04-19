@@ -16,8 +16,11 @@ class TokenParsingService(
 
         return ParsedToken(
             token = token.token,
-            type = ParsedToken.Type.valueOf(token.type.name),
-            asc = ParsedToken.OperatorAssociativity.valueOf(token.asc.name),
+            type = if (value != null){
+                ParsedToken.Type.LITERAL
+            } else {
+                ParsedToken.Type.valueOf(token.type.name)
+            },
             value = value
         )
     }

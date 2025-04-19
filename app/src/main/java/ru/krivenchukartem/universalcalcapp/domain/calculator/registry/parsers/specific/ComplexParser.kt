@@ -3,7 +3,7 @@ package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.s
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.Parser
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberComplex
-import ru.krivenchukartem.universalcalcapp.domain.errors.ParserRegistryExceptions
+import ru.krivenchukartem.universalcalcapp.domain.errors.AppException.ParserRegistryExceptions
 
 object ComplexParser: Parser<NumberComplex> {
     override val name: String

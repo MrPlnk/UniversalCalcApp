@@ -1,7 +1,7 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer
 
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
-import ru.krivenchukartem.universalcalcapp.domain.errors.TokenizerExceptions
+import ru.krivenchukartem.universalcalcapp.domain.errors.AppException.TokenizerExceptions
 
 enum class States {
     S0, // Начальное состояние: ожидание первого символа токена

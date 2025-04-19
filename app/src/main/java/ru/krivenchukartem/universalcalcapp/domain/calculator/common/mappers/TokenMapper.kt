@@ -17,7 +17,6 @@ fun <T : NumberBase<T>> Token.toParsedToken(parser: Parser<T>): ParsedToken<T> {
     return ParsedToken(
         token = this.token,
         type = ParsedToken.Type.valueOf(this.type.name),
-        asc = ParsedToken.OperatorAssociativity.valueOf(this.asc.name),
         value = value
     )
 }

@@ -1,6 +1,7 @@
 package ru.krivenchukartem.universalcalcapp.domain.calculator.common.models
 
-import ru.krivenchukartem.universalcalcapp.domain.errors.TokenizerExceptions
+import ru.krivenchukartem.universalcalcapp.domain.errors.AppException.TokenizerExceptions
+
 
 data class Token (
     val token: String,
