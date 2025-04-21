@@ -12,8 +12,11 @@ import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.sp
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.PSystemParser
 import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.UniversalTokenizer
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
+import ru.krivenchukartem.universalcalcapp.domain.repositoryInterfaces.OperationMemoryRepository
 
-class SolveFractionalExpressionUseCase() {
+class SolveFractionalExpressionUseCase(
+    private val memoryRepository: OperationMemoryRepository
+) {
     operator fun invoke(expressionStr: String): String {
         val rpn = RPN()
         val typeParserRegistry = TypeParserRegistry(listOf(
@@ -25,9 +28,11 @@ class SolveFractionalExpressionUseCase() {
         val parsingService = TokenParsingService(typeParserRegistry)
         val parsedTokenCompiler = ParsedTokenCompiler(parsingService, rpn)
         val processor = RPNProcessor(FunctionRegistryProvider.fractionalFunctionRegistry)
+        val extendExpression = ExtendTokenExpressionUseCase(memoryRepository)
 
         val tokens = UniversalTokenizer().tokenize(expressionStr)
-        val parsedTokens = parsedTokenCompiler.compile(tokens)
+        val extendedTokens = extendExpression(tokens)
+        val parsedTokens = parsedTokenCompiler.compile(extendedTokens)
         val resultToken = processor.evaluate(parsedTokens as List<ParsedToken<NumberFractional>>)
         return resultToken.value.toString()
     }

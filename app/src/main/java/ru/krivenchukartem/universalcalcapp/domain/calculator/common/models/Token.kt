@@ -29,7 +29,7 @@ data class Token (
         FRACTIONAL_LITERAL, // простая дробь
         PSYSTEM_LITERAL, // число в системе счисления
         FUNCTION,      // функция
-        SEPARATOR      // разделитель аргументов функции
+        SEPARATOR,      // разделитель аргументов функции
     }
 
     enum class OperatorAssociativity{
@@ -37,4 +37,11 @@ data class Token (
         RIGHT, // правоассоциативный
         LEFT   // левоассоциативный
     }
+}
+
+fun Token.isLiteral(): Boolean = when (this.type) {
+    Token.Type.FRACTIONAL_LITERAL,
+    Token.Type.COMPLEX_LITERAL,
+    Token.Type.PSYSTEM_LITERAL -> true
+    else -> false
 }

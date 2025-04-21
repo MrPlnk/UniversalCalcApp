@@ -6,7 +6,7 @@ import ru.krivenchukartem.universalcalcapp.domain.errors.AppException.MemoryExce
 
 data class OperationMemory(
     val lastOperation: Token,
-    val lastOperand: Token
+    val lastOperand: List<Token>
 ){
     init {
         validate()
@@ -16,11 +16,12 @@ data class OperationMemory(
         if (lastOperation.type != Token.Type.OPERATOR){
             throw MemoryException.InvalidTokenTypeForOperatorArgument(lastOperation.token)
         }
-        when (lastOperand.type){
-            Token.Type.FRACTIONAL_LITERAL,
-                Token.Type.COMPLEX_LITERAL,
-                Token.Type.PSYSTEM_LITERAL -> Unit
-            else -> throw MemoryException.InvalidTokenTypeForOperandArgument(lastOperand.token)
+
+        val containsNumber = lastOperand.any { it.isLiteral() }
+
+        if (!containsNumber) {
+            val repr = lastOperand.joinToString(" ") { it.token }
+            throw MemoryException.InvalidTokenTypeForOperandArgument(repr)
         }
     }
 }
