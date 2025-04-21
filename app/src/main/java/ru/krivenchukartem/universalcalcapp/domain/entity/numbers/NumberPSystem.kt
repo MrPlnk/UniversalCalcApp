@@ -8,7 +8,7 @@ data class NumberPSystem(
 ) : NumberBase<NumberPSystem> {
 
     override fun toString(): String{
-        return "$number$delimiter$system"
+        return "[$number$delimiter$system]"
     }
 
     companion object{

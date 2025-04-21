@@ -9,9 +9,9 @@ data class NumberComplex(
 
     override fun toString(): String {
         return when {
-            im > 0 -> "$re$delimiterPlus${im}i"
-            im < 0 -> "$re$delimiterMinus${abs(im)}i"
-            else -> "$re"
+            im > 0 -> "[$re$delimiterPlus${im}i]"
+            im < 0 -> "[$re$delimiterMinus${abs(im)}i]"
+            else -> "[$re]"
         }
     }
 

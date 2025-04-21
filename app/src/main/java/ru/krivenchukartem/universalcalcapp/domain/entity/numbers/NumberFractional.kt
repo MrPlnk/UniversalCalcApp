@@ -20,7 +20,7 @@ data class NumberFractional(
         const val delimiter = "/"
     }
 
-    override fun toString(): String = "$numerator$delimiter$divider"
+    override fun toString(): String = "[$numerator$delimiter$divider]"
 
     override fun plus(other: NumberFractional): NumberFractional =
         NumberFractional(

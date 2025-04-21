@@ -2,7 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.kapt)         // обязательно до Hilt‑плагина
+    alias(libs.plugins.hilt)                // подключаем плагин Hilt
 }
+
 
 android {
     namespace = "ru.krivenchukartem.universalcalcapp"
@@ -57,4 +60,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     testImplementation(kotlin("test"))
+    implementation(libs.hilt.android)       // core
+    kapt         (libs.hilt.compiler)        // кодогенерация
 }
