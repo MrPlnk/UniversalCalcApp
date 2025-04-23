@@ -69,5 +69,23 @@ class SolveFractionalExpressionUnitTest {
 
         assertEquals(expected, result)
     }
+
+    @Test
+    fun invoke_resultIsZeroFractionalNumber(){
+        val expression = "[-3/10] + [3/10]"
+        var result = solve(expression)
+        val expected = NumberFractional(0, 1).toString()
+
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun invoke_resultIsZeroComplexNumber(){
+        val expression = "[1+3i] + [1-3i]"
+        var result = solve(expression)
+        val expected = NumberFractional(0, 0).toString()
+
+        assertEquals(expected, result)
+    }
 }
 

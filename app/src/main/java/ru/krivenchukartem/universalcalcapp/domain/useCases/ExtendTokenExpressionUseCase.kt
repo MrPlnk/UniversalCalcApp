@@ -4,9 +4,12 @@ import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Opera
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.isLiteral
 import ru.krivenchukartem.universalcalcapp.domain.repositoryInterfaces.OperationMemoryRepository
+import ru.krivenchukartem.universalcalcapp.domain.useCases.memory.SaveMemoryUseCase
+import javax.inject.Inject
 
-class ExtendTokenExpressionUseCase(
-    private val repository: OperationMemoryRepository
+class ExtendTokenExpressionUseCase @Inject constructor(
+    private val repository: OperationMemoryRepository,
+    private val saveMemoryUseCase: SaveMemoryUseCase
 ) {
     operator fun invoke(tokens: List<Token>): List<Token>{
         val list = tokens.toMutableList()
@@ -27,24 +30,24 @@ class ExtendTokenExpressionUseCase(
             }
         }
 
-        if (list.size >= 3){
-            val lastOpIndex = list.indexOfLast { it.type == Token.Type.OPERATOR }
-            if (lastOpIndex != -1 && lastOpIndex < list.size - 1) {
-                val lastOperation = list[lastOpIndex]
-                val lastOperandTokens = list.subList(lastOpIndex + 1, list.size)
-                val lastLiteralType = lastOperandTokens.firstOrNull {it.isLiteral()}?.type
-                if (lastLiteralType != null) {
-                    repository.saveMemory(
-                        lastLiteralType,
-                        OperationMemory(
-                            lastOperation = lastOperation,
-                            lastOperand = lastOperandTokens.toList()
+            if (list.size >= 3){
+                val lastOpIndex = list.indexOfLast { it.type == Token.Type.OPERATOR }
+                if (lastOpIndex != -1 && lastOpIndex < list.size - 1) {
+                    val lastOperation = list[lastOpIndex]
+                    val lastOperandTokens = list.subList(lastOpIndex + 1, list.size)
+                    val lastLiteralType = lastOperandTokens.firstOrNull {it.isLiteral()}?.type
+                    if (lastLiteralType != null) {
+                        repository.saveMemory(
+                            lastLiteralType,
+                            OperationMemory(
+                                lastOperation = lastOperation,
+                                lastOperand = lastOperandTokens.toList()
+                            )
                         )
-                    )
+                    }
                 }
-            }
 
-        }
+            }
 
         return list.toList()
     }

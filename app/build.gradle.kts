@@ -60,6 +60,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     testImplementation(kotlin("test"))
-    implementation(libs.hilt.android)       // core
-    kapt         (libs.hilt.compiler)        // кодогенерация
+    implementation(libs.hilt.android)                       // core
+    kapt         (libs.hilt.compiler)                       // кодогенерация
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+
 }

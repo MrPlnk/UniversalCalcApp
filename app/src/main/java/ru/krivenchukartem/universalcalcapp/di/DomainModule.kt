@@ -14,14 +14,28 @@ import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.Ty
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.ComplexParser
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.FractionalParser
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.PSystemParser
+import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.Tokenizer
+import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.UniversalTokenizer
 import ru.krivenchukartem.universalcalcapp.domain.repositoryInterfaces.OperationMemoryRepository
 import ru.krivenchukartem.universalcalcapp.domain.useCases.ExtendTokenExpressionUseCase
 import ru.krivenchukartem.universalcalcapp.domain.useCases.SolveUniversalExpressionUseCase
+import ru.krivenchukartem.universalcalcapp.domain.useCases.memory.SaveMemoryUseCase
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DomainModule {
+
+    @Provides @Singleton
+    fun provideTokenizer(): Tokenizer =
+        UniversalTokenizer()
+
+    @Provides @Singleton
+    fun provideSaveMemoryUseCase(
+        repo: OperationMemoryRepository,
+        tokenizer: Tokenizer
+    ): SaveMemoryUseCase =
+        SaveMemoryUseCase(repo, tokenizer)
 
     @Provides @Singleton
     fun provideOperationMemoryRepository(): OperationMemoryRepository =
@@ -41,7 +55,7 @@ object DomainModule {
 
     @Provides
     fun provideExtendTokenExpressionUseCase(
-        repo: OperationMemoryRepository
-    ): ExtendTokenExpressionUseCase = ExtendTokenExpressionUseCase(repo)
-
+        repo: OperationMemoryRepository,
+        saveMemoryUseCase: SaveMemoryUseCase
+    ): ExtendTokenExpressionUseCase = ExtendTokenExpressionUseCase(repo, saveMemoryUseCase)
 }
