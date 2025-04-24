@@ -11,7 +11,7 @@ class ExtendTokenExpressionUseCase @Inject constructor(
     private val repository: OperationMemoryRepository,
     private val saveMemoryUseCase: SaveMemoryUseCase
 ) {
-    operator fun invoke(tokens: List<Token>): List<Token>{
+    operator fun invoke(tokens: List<Token>): Result<List<Token>> = runCatching{
         val list = tokens.toMutableList()
         when {
             tokens.size == 1 && tokens[0].isLiteral() -> {
@@ -27,6 +27,6 @@ class ExtendTokenExpressionUseCase @Inject constructor(
         }
 
         saveMemoryUseCase(list)
-        return list.toList()
+        list.toList()
     }
 }

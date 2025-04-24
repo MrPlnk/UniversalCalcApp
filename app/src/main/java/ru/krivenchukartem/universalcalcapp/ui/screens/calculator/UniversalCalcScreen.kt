@@ -121,6 +121,10 @@ fun UniversalCalcPanelMain(
         "<" to {viewModel.backSpace()}
     )
 
+    val memoryActionsMap: Map<String, () -> Unit> = mapOf(
+        "MC" to
+    )
+
     Column {
         CalcActionPanel(4, 4, digitsMap)
     }

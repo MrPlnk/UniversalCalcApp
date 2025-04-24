@@ -12,7 +12,7 @@ class SaveMemoryUseCase @Inject constructor(
     private val memoryRepository: OperationMemoryRepository,
     private val tokenizer: Tokenizer
 ) {
-    operator fun invoke(list: List<Token>){
+    operator fun invoke(list: List<Token>): Result<Unit> = runCatching{
         if (list.size >= 3){
             val lastOpIndex = list.indexOfLast { it.type == Token.Type.OPERATOR }
             if (lastOpIndex != -1 && lastOpIndex < list.size - 1) {
@@ -32,7 +32,7 @@ class SaveMemoryUseCase @Inject constructor(
         }
     }
 
-    operator fun invoke(expression: String){
+    operator fun invoke(expression: String): Result<Unit> = runCatching{
         val tokens = tokenizer.tokenize(expression)
         invoke(tokens)
     }

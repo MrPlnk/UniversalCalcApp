@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.NavHost
 import ru.krivenchukartem.universalcalcapp.ui.screens.calculator.UniversalCalcDestination
+import ru.krivenchukartem.universalcalcapp.ui.screens.calculator.UniversalCalcScreen
 
 
 @Composable
@@ -19,7 +20,9 @@ fun UniversalCalcNavGraph(
         modifier = modifier
     ){
         composable(route = UniversalCalcDestination.route){
+            UniversalCalcScreen(
 
+            )
         }
     }
 }

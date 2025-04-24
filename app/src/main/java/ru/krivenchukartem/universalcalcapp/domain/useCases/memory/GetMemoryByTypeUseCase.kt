@@ -10,11 +10,11 @@ class GetMemoryByTypeUseCase @Inject constructor(
     private val memoryRepository: OperationMemoryRepository,
     private val tokenTypeExtractor: TokenTypeExtractor
 ) {
-    operator fun invoke(type: Token.Type): OperationMemory?{
-        return memoryRepository.getMemoryByType(type)
+    operator fun invoke(type: Token.Type): Result<OperationMemory?> = runCatching{
+        memoryRepository.getMemoryByType(type)
     }
 
-    operator fun invoke(expression: String): OperationMemory?{
+    operator fun invoke(expression: String): Result<OperationMemory?> = kotlin.runCatching{
         val types = tokenTypeExtractor.extract(expression)
         return invoke(types.last())
     }

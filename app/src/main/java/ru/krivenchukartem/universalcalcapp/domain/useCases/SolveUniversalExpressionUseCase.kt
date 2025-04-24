@@ -8,6 +8,7 @@ import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.Tokenizer
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberComplex
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberPSystem
+import ru.krivenchukartem.universalcalcapp.domain.errors.AppException
 import javax.inject.Inject
 
 class SolveUniversalExpressionUseCase @Inject constructor(
@@ -16,13 +17,13 @@ class SolveUniversalExpressionUseCase @Inject constructor(
     private val functionRegistryProvider: FunctionRegistryProvider,
     private val extendTokenExpressionUseCase: ExtendTokenExpressionUseCase
 ) {
-    operator fun invoke(expressionStr: String): String {
+    operator fun invoke(expressionStr: String): Result<String> = kotlin.runCatching {
         val tokens = tokenizer.tokenize(expressionStr)
-        val extended = extendTokenExpressionUseCase(tokens)
+        val extended = extendTokenExpressionUseCase(tokens).getOrThrow()
         val parsedTokens = parsedTokenCompiler.compile(extended)
 
         val firstLiteral = parsedTokens.firstOrNull { it.type == ParsedToken.Type.LITERAL }
-            ?: throw IllegalArgumentException("…")
+            ?: throw AppException.UseCasesException.ExpressionNotContainNumbers(expressionStr)
 
         val resultToken = when (firstLiteral.value) {
             is NumberFractional -> {
@@ -46,6 +47,6 @@ class SolveUniversalExpressionUseCase @Inject constructor(
             else -> throw IllegalStateException("Unsupported number type")
         }
 
-        return resultToken.value.toString()
+        resultToken.value.toString()
     }
 }

@@ -31,4 +31,11 @@ sealed class AppException(message: String = "Ошибка работы прог�
         class InvalidTokenTypeForOperatorArgument(token: String): MemoryException("Токен $token не является оператором")
         class InvalidTokenTypeForOperandArgument(token: String): MemoryException("Токен $token не является операндом")
     }
+
+    sealed class UseCasesException(message: String): AppException(message){
+        sealed class MemoryException(message: String): UseCasesException(message){
+
+        }
+        class ExpressionNotContainNumbers(expression: String): UseCasesException("Выражение '$expression' не содержит чисел")
+    }
 }

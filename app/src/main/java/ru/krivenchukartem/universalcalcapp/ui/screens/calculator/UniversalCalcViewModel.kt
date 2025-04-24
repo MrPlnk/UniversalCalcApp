@@ -17,34 +17,39 @@ import javax.inject.Inject
 class UniversalCalcViewModel @Inject constructor(
     private val solveUniversalExpressionUseCase: SolveUniversalExpressionUseCase
 ): ViewModel() {
-    private val _uiState = MutableStateFlow(UniversalCalcState())
-    val uiState: StateFlow<UniversalCalcState> = _uiState.asStateFlow()
-
-    fun updateState(newValue: String) {
-        _uiState.update { current ->
-            current.copy(expression = current.expression + newValue)
-        }
-    }
-
-    fun clearExpression() {
-        _uiState.update { current ->
-            current.copy(expression = "")
-        }
-    }
-
-    fun solveExpression() {
-        val result = solveUniversalExpressionUseCase(_uiState.value.expression)
-        _uiState.update { it.copy(result = result) }
-    }
-
-    fun backSpace(){
-        _uiState.update { current ->
-            current.copy(expression = current.expression.substring(0, current.expression.length - 2))
-        }
-    }
+//    private val _uiState = MutableStateFlow(UniversalCalcState())
+//    val uiState: StateFlow<UniversalCalcState> = _uiState.asStateFlow()
+//
+//    fun updateState(newValue: String) {
+//        _uiState.update { current ->
+//            current.copy(expression = current.expression + newValue)
+//        }
+//    }
+//
+//    fun clearExpression() {
+//        _uiState.update { current ->
+//            current.copy(expression = "")
+//        }
+//    }
+//
+//    fun solveExpression() {
+//        val result = solveUniversalExpressionUseCase(_uiState.value.expression)
+//        _uiState.update { it.copy(result = result) }
+//    }
+//
+//    fun backSpace(){
+//        _uiState.update { current ->
+//            current.copy(expression = current.expression.substring(0, current.expression.length - 2))
+//        }
+//    }
 }
 
-data class UniversalCalcState(
-    val expression: String = "",
-    val result: String = ""
-)
+sealed class UniversalCalcState {
+    data class Success(
+        val expression: String = "",
+        val result: String = ""
+    ) : UniversalCalcState()
+    data class Error(
+        val message: String = ""
+    ) : UniversalCalcState()
+}
