@@ -3,34 +3,43 @@ package ru.krivenchukartem.universalcalcapp.useCases
 import org.junit.Test
 import org.junit.Assert.assertEquals
 import ru.krivenchukartem.universalcalcapp.data.calculator.memory.InMemoryOperationMemoryRepository
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.service.TokenParsingService
+import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.DefaultParsedTokenCompiler
 import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.RPN
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions.FunctionRegistryProvider
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.TypeParserRegistry
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.ComplexParser
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.FractionalParser
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.PSystemParser
+import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.UniversalTokenizer
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
+import ru.krivenchukartem.universalcalcapp.domain.useCases.ExtendTokenExpressionUseCase
 import ru.krivenchukartem.universalcalcapp.domain.useCases.SolveUniversalExpressionUseCase
+import ru.krivenchukartem.universalcalcapp.domain.useCases.memory.SaveMemoryUseCase
 
 class SolveFractionalExpressionUnitTest {
 
 
     // 1. Все зависимости
     private val memoryRepository = InMemoryOperationMemoryRepository()
-
     private val typeParserRegistry = TypeParserRegistry(
         listOf(FractionalParser, ComplexParser, PSystemParser)
     )
-
     private val rpn = RPN()
+    private val parsingService = TokenParsingService(typeParserRegistry)
+    private val tokenizer = UniversalTokenizer()
+    private val saveMemoryUseCase = SaveMemoryUseCase(memoryRepository, tokenizer)
+
+    private val extendTokenExpressionUseCase = ExtendTokenExpressionUseCase(memoryRepository, saveMemoryUseCase)
+    private val parsedTokenCompiler = DefaultParsedTokenCompiler(parsingService, rpn)
     private val functionRegistryProvider = FunctionRegistryProvider
 
     // 2. Инстанцируем UseCase один раз для всех тестов
     private val solve = SolveUniversalExpressionUseCase(
-        memoryRepository,
-        typeParserRegistry,
-        rpn,
-        functionRegistryProvider
+        tokenizer,
+        parsedTokenCompiler,
+        functionRegistryProvider,
+        extendTokenExpressionUseCase
     )
     @Test
     fun invoke_defaultTest(){

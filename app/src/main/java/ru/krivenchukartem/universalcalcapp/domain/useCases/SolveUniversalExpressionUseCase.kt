@@ -1,34 +1,25 @@
 package ru.krivenchukartem.universalcalcapp.domain.useCases
 
-import ru.krivenchukartem.universalcalcapp.domain.calculator.common.mappers.TokenParsingService
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.ParsedToken
 import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.ParsedTokenCompiler
-import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.RPN
 import ru.krivenchukartem.universalcalcapp.domain.calculator.processor.RPNProcessor
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions.FunctionRegistryProvider
-import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.TypeParserRegistry
-import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.ComplexParser
-import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.FractionalParser
-import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.PSystemParser
-import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.UniversalTokenizer
-import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberBase
+import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.Tokenizer
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberComplex
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractional
 import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberPSystem
-import ru.krivenchukartem.universalcalcapp.domain.repositoryInterfaces.OperationMemoryRepository
 import javax.inject.Inject
 
 class SolveUniversalExpressionUseCase @Inject constructor(
-    private val memoryRepository: OperationMemoryRepository,
-    private val typeParserRegistry: TypeParserRegistry,
-    private val rpn: RPN,
-    private val functionRegistryProvider: FunctionRegistryProvider
+    private val tokenizer: Tokenizer,
+    private val parsedTokenCompiler: ParsedTokenCompiler,
+    private val functionRegistryProvider: FunctionRegistryProvider,
+    private val extendTokenExpressionUseCase: ExtendTokenExpressionUseCase
 ) {
     operator fun invoke(expressionStr: String): String {
-        val tokens = UniversalTokenizer().tokenize(expressionStr)
-        val extended = ExtendTokenExpressionUseCase(memoryRepository).invoke(tokens)
-        val parsedTokens = ParsedTokenCompiler(TokenParsingService(typeParserRegistry), rpn)
-            .compile(extended)
+        val tokens = tokenizer.tokenize(expressionStr)
+        val extended = extendTokenExpressionUseCase(tokens)
+        val parsedTokens = parsedTokenCompiler.compile(extended)
 
         val firstLiteral = parsedTokens.firstOrNull { it.type == ParsedToken.Type.LITERAL }
             ?: throw IllegalArgumentException("…")

@@ -1,10 +1,10 @@
 package ru.krivenchukartem.universalcalcapp.calculator.parser
 
 import org.junit.Test
-import ru.krivenchukartem.universalcalcapp.domain.calculator.common.mappers.TokenParsingService
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.service.TokenParsingService
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.ParsedToken
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
-import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.ParsedTokenCompiler
+import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.DefaultParsedTokenCompiler
 import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.RPN
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.TypeParserRegistry
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.specific.FractionalParser
@@ -24,7 +24,7 @@ class ParsedTokenCompilerUnitTest {
             Token("3/4", Token.Type.FRACTIONAL_LITERAL, Token.OperatorAssociativity.NONE),
             Token(")", Token.Type.R_PARENTHESIS, Token.OperatorAssociativity.NONE)
         )
-        val tokenCompiler = ParsedTokenCompiler(
+        val tokenCompiler = DefaultParsedTokenCompiler(
             parsingService = TokenParsingService(TypeParserRegistry(listOf(FractionalParser))),
             rpn = RPN(),
         )

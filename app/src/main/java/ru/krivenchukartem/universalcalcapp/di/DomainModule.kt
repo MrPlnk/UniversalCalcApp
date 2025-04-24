@@ -1,13 +1,15 @@
 package ru.krivenchukartem.universalcalcapp.di
 
-import dagger.hilt.android.HiltAndroidApp
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.krivenchukartem.universalcalcapp.data.calculator.memory.InMemoryOperationMemoryRepository
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.service.DefaultTokenTypeExtractor
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.service.TokenParsingService
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.service.TokenTypeExtractor
+import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.DefaultParsedTokenCompiler
+import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.ParsedTokenCompiler
 import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.RPN
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.functions.FunctionRegistryProvider
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.TypeParserRegistry
@@ -18,7 +20,6 @@ import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.Tokenizer
 import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.UniversalTokenizer
 import ru.krivenchukartem.universalcalcapp.domain.repositoryInterfaces.OperationMemoryRepository
 import ru.krivenchukartem.universalcalcapp.domain.useCases.ExtendTokenExpressionUseCase
-import ru.krivenchukartem.universalcalcapp.domain.useCases.SolveUniversalExpressionUseCase
 import ru.krivenchukartem.universalcalcapp.domain.useCases.memory.SaveMemoryUseCase
 import javax.inject.Singleton
 
@@ -36,6 +37,18 @@ object DomainModule {
         tokenizer: Tokenizer
     ): SaveMemoryUseCase =
         SaveMemoryUseCase(repo, tokenizer)
+
+    @Provides @Singleton
+    fun provideExpressionTypeDetector(
+        tokenizer: Tokenizer
+    ): TokenTypeExtractor =
+        DefaultTokenTypeExtractor(tokenizer)
+
+    @Provides @Singleton
+    fun provideParsedTokenCompiler(
+        parsingService: TokenParsingService,
+        rpn: RPN
+    ): ParsedTokenCompiler = DefaultParsedTokenCompiler(parsingService, rpn)
 
     @Provides @Singleton
     fun provideOperationMemoryRepository(): OperationMemoryRepository =
