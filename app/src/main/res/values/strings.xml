@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Универсальный калькулятор</string>
     <string name="universal_calc_screen">Универсальный калькулятор</string>
-    <string name="info_Screen">Справка</string>
+    <string name="info_screen">Справка</string>
 
     <string name="navigate_back">Назад</string>
+    <string name="navigate_info">Справка</string>
 </resources>

@@ -17,6 +17,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -56,9 +57,6 @@ fun UniversalCalcScreen(
         {viewModel.updateExpression(digit)}
     }
 
-    val calcThingsSymbols = listOf(
-        "[", "]", "(", ")", "+", "-", "*", "/", ",", "."
-    )
     val calcThingsSymbolsMap: Map<String, () -> Unit> = mapOf(
         "[" to {viewModel.updateExpression("[")},
         "]" to {viewModel.updateExpression("]")},
@@ -85,10 +83,13 @@ fun UniversalCalcScreen(
         "M+" to {}
     )
 
-    val functionsMap: Map<String, () -> Unit> = mapOf(
+    val functionsMap: MutableMap<String, () -> Unit> = mutableMapOf(
         "sqr" to {viewModel.updateExpression("square(")},
         "rev" to {viewModel.updateExpression("reverse(")}
     )
+    for (i in functionsMap.size..16){
+        functionsMap["$i"] = {}
+    }
 
     val mainPanelMap: Map<String, Map<String, () -> Unit>> = mapOf(
         "digitsMap" to digitsMap,
@@ -191,18 +192,9 @@ fun UniversalCalcPanel(
         modifier = modifier,
 //        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column {
-            HorizontalDivider()
-            Row {
-                OutlinedButton(onClick = {changePanel(Panel.NUMBERS)}) {
-                    Text(text = "123")
-                }
-                OutlinedButton(onClick = {changePanel(Panel.FUNCTIONS)}) {
-                    Text(text = "fun")
-                }
-            }
-            HorizontalDivider()
-        }
+        PanelMenu(
+            changePanel = changePanel
+        )
         CalcActionPanel(
             panelMap.getValue("memoryActionsMap"), 1, 4,
             buttonColors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary)
@@ -233,6 +225,29 @@ fun UniversalCalcPanel(
                 buttonColors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.tertiary)
             )
         }
+    }
+}
+
+@Composable
+fun PanelMenu(
+    changePanel: (Panel) -> Unit,
+    modifier: Modifier = Modifier
+){
+    Column(modifier) {
+        HorizontalDivider()
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            OutlinedButton(onClick = {changePanel(Panel.NUMBERS)}) {
+                Text(text = "123")
+            }
+            Spacer(Modifier.padding(dimensionResource(R.dimen.padding_small)))
+            OutlinedButton(onClick = {changePanel(Panel.FUNCTIONS)}) {
+                Text(text = "fun")
+            }
+        }
+        HorizontalDivider(color = MaterialTheme.colorScheme.onSecondaryContainer)
     }
 }
 
@@ -290,6 +305,14 @@ fun ShowError(
             modifier = Modifier.fillMaxWidth().padding(dimensionResource(R.dimen.padding_medium))
         )
     }
+}
+
+@Preview
+@Composable
+fun PanelMenuPreview(){
+    PanelMenu(
+        changePanel = {}
+    )
 }
 
 @Preview
