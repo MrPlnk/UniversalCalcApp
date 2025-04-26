@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.calculator.tokenizer
+package ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer
 
 import org.junit.Assert
 import org.junit.Test

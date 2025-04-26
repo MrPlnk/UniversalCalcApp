@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.calculator.parser
+package ru.krivenchukartem.universalcalcapp.domain.calculator.parser
 
 import org.junit.Test
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.service.TokenParsingService

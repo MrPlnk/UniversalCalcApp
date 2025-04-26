@@ -5,10 +5,10 @@ import ru.krivenchukartem.universalcalcapp.domain.errors.AppException.TokenizerE
 
 object OperatorPrecedence {
     private val precedence = mapOf(
-        "+" to 1,
-        "-" to 1,
-        "*" to 2,
-        "/" to 2
+        "+" to 2,
+        "-" to 2,
+        "*" to 1,
+        "/" to 1
     )
 
     fun getPrecedence(token: Token): Int =

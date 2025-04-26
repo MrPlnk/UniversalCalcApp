@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.calculator.processor
+package ru.krivenchukartem.universalcalcapp.domain.calculator.processor
 
 import org.junit.Test
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.ParsedToken

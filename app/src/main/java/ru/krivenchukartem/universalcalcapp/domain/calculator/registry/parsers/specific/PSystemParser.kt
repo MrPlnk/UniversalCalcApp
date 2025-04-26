@@ -13,11 +13,35 @@ object PSystemParser: Parser<NumberPSystem>{
     override val supportedTokenType: Token.Type
         get() = Token.Type.PSYSTEM_LITERAL
 
+    private val pattern = Regex(
+        """^\s*([0-9A-Za-z]+(?:\.[0-9A-Za-z]+)?)\s*,\s*([0-9]|[1-2][0-9]|3[0-6])\s*$"""
+    )
+
     override fun parse(literal: String): NumberPSystem {
-        val parts = literal.split(NumberPSystem.delimiter)
-        if (parts.size != 2){
-            throw ParserRegistryExceptions.CantConvertNumber(literal, name)
+        val match = pattern.matchEntire(literal)
+            ?: throw ParserRegistryExceptions.CantConvertNumber(literal, name)
+
+        val digitString = match.groupValues[1]
+        val base = match.groupValues[2].toInt()
+
+        // Функция перевода символа в его числовое значение:
+        fun charValue(c: Char): Int = when (c) {
+            in '0'..'9' -> c - '0'
+            in 'A'..'Z' -> c - 'A' + 10
+            in 'a'..'z' -> c - 'a' + 10
+            else -> -1
         }
-        return NumberPSystem(parts[0], parts[1].toInt())
+
+        // Проверяем, что все символы (кроме точки) допустимы в данном base
+        digitString.forEach { c ->
+            if (c != '.') {
+                val v = charValue(c)
+                if (v < 0 || v >= base) {
+                    throw ParserRegistryExceptions.CantConvertNumber(literal, name)
+                }
+            }
+        }
+
+        return NumberPSystem(digitString, base)
     }
 }

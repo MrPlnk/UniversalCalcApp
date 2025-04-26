@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.calculator.registry.parsers
+package ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers
 
 import ru.krivenchukartem.universalcalcapp.domain.calculator.registry.parsers.ParserRegistryProvider
 import kotlin.test.Test

@@ -13,12 +13,21 @@ object FractionalParser: Parser<NumberFractional> {
         get() = Token.Type.FRACTIONAL_LITERAL
 
 
+    private val pattern = Regex("""^\s*([+-]?\d+)\s*/\s*([+-]?\d+)\s*$""")
+
     override fun parse(literal: String): NumberFractional {
-        val parts = literal.split(NumberFractional.delimiter)
-        if (parts.size != 2){
+        val match = pattern.matchEntire(literal)
+            ?: throw ParserRegistryExceptions.CantConvertNumber(literal, name)
+
+        val numerator = match.groupValues[1].toIntOrNull()
+            ?: throw ParserRegistryExceptions.CantConvertNumber(literal, name)
+        val denominator = match.groupValues[2].toIntOrNull()
+            ?: throw ParserRegistryExceptions.CantConvertNumber(literal, name)
+
+        if (denominator == 0) {
             throw ParserRegistryExceptions.CantConvertNumber(literal, name)
         }
-        return NumberFractional(parts[0].toInt(), parts[1].toInt())
-    }
 
+        return NumberFractional(numerator, denominator)
+    }
 }

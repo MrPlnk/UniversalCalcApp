@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.calculator.parser
+package ru.krivenchukartem.universalcalcapp.domain.calculator.parser
 
 import org.junit.Test
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.models.Token
@@ -28,6 +28,26 @@ class RPNUnitTest {
         }
         val expected = listOf(
             "4/7", "4/13", "3/4", "+", "square", "+"
+        )
+        assertEquals(expected, result.toList())
+    }
+
+    @Test
+    fun toRPN_differentOperators(){
+        val tokens = listOf(
+            Token("1/10", Token.Type.FRACTIONAL_LITERAL, Token.OperatorAssociativity.NONE),
+            Token("+", Token.Type.OPERATOR, Token.OperatorAssociativity.LEFT),
+            Token("1/10", Token.Type.FRACTIONAL_LITERAL, Token.OperatorAssociativity.NONE),
+            Token("/", Token.Type.OPERATOR, Token.OperatorAssociativity.LEFT),
+            Token("1/10", Token.Type.FRACTIONAL_LITERAL, Token.OperatorAssociativity.NONE),
+        )
+        val rpn = RPN().toRPN(tokens)
+        val result = mutableListOf<String>()
+        rpn.forEach {
+            result.add(it.token)
+        }
+        val expected = listOf(
+            "1/10", "1/10", "1/10", "/", "+"
         )
         assertEquals(expected, result.toList())
     }

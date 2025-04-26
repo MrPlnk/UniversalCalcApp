@@ -17,7 +17,7 @@ class SolveUniversalExpressionUseCase @Inject constructor(
     private val functionRegistryProvider: FunctionRegistryProvider,
     private val extendTokenExpressionUseCase: ExtendTokenExpressionUseCase
 ) {
-    operator fun invoke(expressionStr: String): Result<String> = kotlin.runCatching {
+    operator fun invoke(expressionStr: String): Result<String> = runCatching {
         val tokens = tokenizer.tokenize(expressionStr)
         val extended = extendTokenExpressionUseCase(tokens).getOrThrow()
         val parsedTokens = parsedTokenCompiler.compile(extended)

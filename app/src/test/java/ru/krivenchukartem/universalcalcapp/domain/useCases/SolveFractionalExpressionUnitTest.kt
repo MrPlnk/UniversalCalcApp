@@ -1,4 +1,4 @@
-package ru.krivenchukartem.universalcalcapp.useCases
+package ru.krivenchukartem.universalcalcapp.domain.useCases
 
 import org.junit.Test
 import org.junit.Assert.assertEquals
@@ -44,7 +44,7 @@ class SolveFractionalExpressionUnitTest {
     @Test
     fun invoke_defaultTest(){
         val expression = "[3/10] + square([2/10] + [4/10])"
-        val result = solve(expression)
+        val result = solve(expression).getOrThrow()
         val expected = NumberFractional(66, 100).toString()
 
         assertEquals(expected, result)
@@ -53,7 +53,7 @@ class SolveFractionalExpressionUnitTest {
     @Test
     fun invoke_extendUsage(){
         val expression = "[3/10] + "
-        val result = solve(expression)
+        val result = solve(expression).getOrThrow()
         val expected = NumberFractional(3, 5).toString()
 
         assertEquals(expected, result)
@@ -62,8 +62,8 @@ class SolveFractionalExpressionUnitTest {
     @Test
     fun invoke_memoryUsage(){
         val expression = "[3/10] + "
-        var result = solve(expression)
-        result = solve.invoke(result)
+        var result = solve(expression).getOrThrow()
+        result = solve(result).getOrThrow()
         val expected = NumberFractional(9, 10).toString()
 
         assertEquals(expected, result)
@@ -72,8 +72,8 @@ class SolveFractionalExpressionUnitTest {
     @Test
     fun invoke_functionInMemory(){
         val expression = "[3/10] + square([3/10])"
-        var result = solve(expression)
-        result = solve(result)
+        var result = solve(expression).getOrThrow()
+        result = solve(result).getOrThrow()
         val expected = NumberFractional(48, 100).toString()
 
         assertEquals(expected, result)
@@ -82,7 +82,7 @@ class SolveFractionalExpressionUnitTest {
     @Test
     fun invoke_resultIsZeroFractionalNumber(){
         val expression = "[-3/10] + [3/10]"
-        var result = solve(expression)
+        var result = solve(expression).getOrThrow()
         val expected = NumberFractional(0, 1).toString()
 
         assertEquals(expected, result)
@@ -91,7 +91,7 @@ class SolveFractionalExpressionUnitTest {
     @Test
     fun invoke_resultIsZeroComplexNumber(){
         val expression = "[1+3i] + [1-3i]"
-        var result = solve(expression)
+        var result = solve(expression).getOrThrow()
         val expected = NumberFractional(0, 0).toString()
 
         assertEquals(expected, result)

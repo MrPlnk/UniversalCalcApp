@@ -20,6 +20,8 @@ import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.Tokenizer
 import ru.krivenchukartem.universalcalcapp.domain.calculator.tokenizer.UniversalTokenizer
 import ru.krivenchukartem.universalcalcapp.domain.repositoryInterfaces.OperationMemoryRepository
 import ru.krivenchukartem.universalcalcapp.domain.useCases.ExtendTokenExpressionUseCase
+import ru.krivenchukartem.universalcalcapp.domain.useCases.memory.ClearMemoryUseCase
+import ru.krivenchukartem.universalcalcapp.domain.useCases.memory.GetMemoryByTypeUseCase
 import ru.krivenchukartem.universalcalcapp.domain.useCases.memory.SaveMemoryUseCase
 import javax.inject.Singleton
 
@@ -37,6 +39,19 @@ object DomainModule {
         tokenizer: Tokenizer
     ): SaveMemoryUseCase =
         SaveMemoryUseCase(repo, tokenizer)
+
+    @Provides @Singleton
+    fun provideGetMemoryByTypeUseCase(
+        repo: OperationMemoryRepository,
+        extractor: TokenTypeExtractor
+    ): GetMemoryByTypeUseCase =
+        GetMemoryByTypeUseCase(repo, extractor)
+
+    @Provides @Singleton
+    fun provideClearMemoryUseCase(
+        repo: OperationMemoryRepository
+    ): ClearMemoryUseCase =
+        ClearMemoryUseCase(repo)
 
     @Provides @Singleton
     fun provideExpressionTypeDetector(

@@ -6,7 +6,7 @@ import ru.krivenchukartem.universalcalcapp.domain.entity.numbers.NumberFractiona
 
 object FractionalReciprocal: Function<NumberFractional> {
     override val name: String
-        get() = "reciprocal"
+        get() = "reverse"
 
     override val arity: Int
         get() = 1

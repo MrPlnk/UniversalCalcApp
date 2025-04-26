@@ -12,11 +12,12 @@ sealed class AppException(message: String = "Ошибка работы прог�
     }
 
     sealed class ParserRegistryExceptions(message: String): AppException(message) {
-        class CantConvertNumber(literal: String, type: String): ParserRegistryExceptions("Can't convert $literal into $type")
+        class CantConvertNumber(literal: String, type: String): ParserRegistryExceptions("Невозможно конвертировать $literal в $type")
+        class CantTransformNumberInSystemWithBase(number: String, base: String): ParserException("Невозможно перевести число $number в систему счисления $base")
     }
 
     sealed class ProcessorExceptions(message: String): AppException(message) {
-        class UnmatchedArguments(function: String, expected: Int, get: Int): ProcessorExceptions("Function '$function' expects $expected argument(s), but got $get")
+        class UnmatchedArguments(function: String, expected: Int, get: Int): ProcessorExceptions("Функция '$function' ожидала $expected агрумент(а), но было передано $get")
         class MissingValue(token: String): ProcessorExceptions("Для токена $token не удалось получить значение")
     }
 

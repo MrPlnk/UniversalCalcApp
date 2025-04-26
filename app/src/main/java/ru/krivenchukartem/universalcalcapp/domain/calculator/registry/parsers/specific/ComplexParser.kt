@@ -12,17 +12,16 @@ object ComplexParser: Parser<NumberComplex> {
     override val supportedTokenType: Token.Type
         get() = Token.Type.COMPLEX_LITERAL
 
+    private val pattern = Regex("""^([+-]?\d+(\.\d+)?)([+-]\d+(\.\d+)?)i$""")
+
     override fun parse(literal: String): NumberComplex {
-        val parts: List<String>
-        if (literal.contains(NumberComplex.delimiterPlus)){
-            parts = literal.split(NumberComplex.delimiterPlus)
-        }
-        else if (literal.contains(NumberComplex.delimiterMinus)){
-            parts = literal.split(NumberComplex.delimiterMinus)
-        }
-        else{
-            throw ParserRegistryExceptions.CantConvertNumber(literal, name)
-        }
-        return NumberComplex(parts[0].toDouble(), parts[1].toDouble())
+        val sanitized = literal.replace("\\s+".toRegex(), "")
+        val match = pattern.matchEntire(sanitized)
+            ?: throw ParserRegistryExceptions.CantConvertNumber(literal, name)
+
+        val realPart = match.groupValues[1].toDouble()
+        val imagPart = match.groupValues[3].toDouble()
+
+        return NumberComplex(realPart, imagPart)
     }
 }
