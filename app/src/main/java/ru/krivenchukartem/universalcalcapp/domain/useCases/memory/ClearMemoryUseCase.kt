@@ -7,7 +7,7 @@ import javax.inject.Inject
 class ClearMemoryUseCase @Inject constructor(
     private val memoryRepository: OperationMemoryRepository
 ) {
-    operator fun invoke(): Result<Unit> = kotlin.runCatching{
+    operator fun invoke(): Result<Unit> = runCatching{
         memoryRepository.clearMemory()
     }
 }

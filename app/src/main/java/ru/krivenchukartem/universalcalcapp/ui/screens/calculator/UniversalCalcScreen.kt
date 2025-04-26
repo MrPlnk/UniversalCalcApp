@@ -77,10 +77,10 @@ fun UniversalCalcScreen(
     )
 
     val memoryActionsMap: Map<String, () -> Unit> = mapOf(
-        "MC" to {},
-        "MS" to {},
-        "MR" to {},
-        "M+" to {}
+        "MC" to {viewModel.memoryClear()},
+        "MS" to {viewModel.memorySave()},
+        "MR" to {viewModel.memoryRecall()},
+        "M+" to {viewModel.memoryAdd()}
     )
 
     val functionsMap: MutableMap<String, () -> Unit> = mutableMapOf(

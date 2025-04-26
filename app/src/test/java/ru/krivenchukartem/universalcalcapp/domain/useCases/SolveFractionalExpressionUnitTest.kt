@@ -3,6 +3,7 @@ package ru.krivenchukartem.universalcalcapp.domain.useCases
 import org.junit.Test
 import org.junit.Assert.assertEquals
 import ru.krivenchukartem.universalcalcapp.data.calculator.memory.InMemoryOperationMemoryRepository
+import ru.krivenchukartem.universalcalcapp.domain.calculator.common.service.DefaultTokenTypeExtractor
 import ru.krivenchukartem.universalcalcapp.domain.calculator.common.service.TokenParsingService
 import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.DefaultParsedTokenCompiler
 import ru.krivenchukartem.universalcalcapp.domain.calculator.parser.RPN
@@ -19,18 +20,18 @@ import ru.krivenchukartem.universalcalcapp.domain.useCases.memory.SaveMemoryUseC
 
 class SolveFractionalExpressionUnitTest {
 
-
-    // 1. Все зависимости
     private val memoryRepository = InMemoryOperationMemoryRepository()
     private val typeParserRegistry = TypeParserRegistry(
         listOf(FractionalParser, ComplexParser, PSystemParser)
     )
+
     private val rpn = RPN()
     private val parsingService = TokenParsingService(typeParserRegistry)
     private val tokenizer = UniversalTokenizer()
-    private val saveMemoryUseCase = SaveMemoryUseCase(memoryRepository, tokenizer)
+    private val tokenTypeExtractor = DefaultTokenTypeExtractor(tokenizer)
+    private val saveMemoryUseCase = SaveMemoryUseCase(memoryRepository, tokenizer, tokenTypeExtractor, rpn)
 
-    private val extendTokenExpressionUseCase = ExtendTokenExpressionUseCase(memoryRepository, saveMemoryUseCase)
+    private val extendTokenExpressionUseCase = ExtendTokenExpressionUseCase(tokenTypeExtractor)
     private val parsedTokenCompiler = DefaultParsedTokenCompiler(parsingService, rpn)
     private val functionRegistryProvider = FunctionRegistryProvider
 

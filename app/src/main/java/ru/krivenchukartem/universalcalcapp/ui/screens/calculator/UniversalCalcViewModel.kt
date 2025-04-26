@@ -28,6 +28,64 @@ class UniversalCalcViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<UniversalCalcState> = MutableStateFlow(UniversalCalcState.Idle())
     val uiState: StateFlow<UniversalCalcState> = _uiState.asStateFlow()
 
+    fun memoryClear() {
+        viewModelScope.launch {
+            clearMemoryUseCase()
+        }
+    }
+
+    fun memorySave() {
+        val expr = _uiState.value.expression
+        viewModelScope.launch {
+            saveMemoryUseCase(expr)
+        }
+    }
+
+    fun memoryRecall() {
+        val expr = _uiState.value.expression
+        viewModelScope.launch {
+            getMemoryByTypeUseCase(expr)
+                .onSuccess { mem ->
+                    mem?.let { memory ->
+                        val recallToken = memory.operand.token
+                        val recalled = if (expr.isBlank()) recallToken else "$expr[$recallToken]"
+                        updateExpressionManually(recalled)
+                    }
+                }
+        }
+    }
+
+    fun memoryAdd() {
+        var expression = _uiState.value.expression
+        val panel = _uiState.value.panel
+        viewModelScope.launch {
+            getMemoryByTypeUseCase(expression)
+                .onSuccess { mem ->
+                    mem?.let { memory ->
+                        val recallToken = memory.operand.token
+                        val recalled = if (expression.isBlank()) "" else recallToken
+                        expression = "$expression + [$recalled]"
+                    }
+                }
+
+            solveUniversalExpressionUseCase(expression)
+                .onSuccess{ value ->
+                    _uiState.value = UniversalCalcState.Success(
+                        expression = value,
+                        result = expression,
+                        panel = panel
+                    )
+                }
+                .onFailure { error ->
+                    _uiState.value = UniversalCalcState.Error(
+                        expression = expression,
+                        error = error.message ?: "Неизвестная ошибка",
+                        panel = panel
+                    )
+                }
+        }
+    }
+
     fun updateExpression(newValue: String) {
         _uiState.update { current ->
             UniversalCalcState.Idle(
@@ -61,8 +119,8 @@ class UniversalCalcViewModel @Inject constructor(
             solveUniversalExpressionUseCase(expression)
                 .onSuccess{ value ->
                     _uiState.value = UniversalCalcState.Success(
-                        expression = expression,
-                        result = value,
+                        expression = value,
+                        result = expression,
                         panel = panel
                     )
                 }

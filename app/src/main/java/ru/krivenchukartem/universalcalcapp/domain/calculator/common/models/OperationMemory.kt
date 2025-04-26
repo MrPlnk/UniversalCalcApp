@@ -5,23 +5,15 @@ import ru.krivenchukartem.universalcalcapp.domain.errors.AppException.MemoryExce
 
 
 data class OperationMemory(
-    val lastOperation: Token,
-    val lastOperand: List<Token>
+    val operand: Token
 ){
     init {
         validate()
     }
 
     private fun validate(){
-        if (lastOperation.type != Token.Type.OPERATOR){
-            throw MemoryException.InvalidTokenTypeForOperatorArgument(lastOperation.token)
-        }
-
-        val containsNumber = lastOperand.any { it.isLiteral() }
-
-        if (!containsNumber) {
-            val repr = lastOperand.joinToString(" ") { it.token }
-            throw MemoryException.InvalidTokenTypeForOperandArgument(repr)
+        if (!operand.isLiteral()){
+            throw MemoryException.InvalidTokenTypeForOperandArgument(operand.toString())
         }
     }
 }

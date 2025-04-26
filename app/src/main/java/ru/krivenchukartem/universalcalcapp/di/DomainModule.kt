@@ -36,9 +36,11 @@ object DomainModule {
     @Provides @Singleton
     fun provideSaveMemoryUseCase(
         repo: OperationMemoryRepository,
-        tokenizer: Tokenizer
+        tokenizer: Tokenizer,
+        tokenTypeExtractor: TokenTypeExtractor,
+        rpn: RPN
     ): SaveMemoryUseCase =
-        SaveMemoryUseCase(repo, tokenizer)
+        SaveMemoryUseCase(repo, tokenizer, tokenTypeExtractor, rpn)
 
     @Provides @Singleton
     fun provideGetMemoryByTypeUseCase(
@@ -83,7 +85,6 @@ object DomainModule {
 
     @Provides
     fun provideExtendTokenExpressionUseCase(
-        repo: OperationMemoryRepository,
-        saveMemoryUseCase: SaveMemoryUseCase
-    ): ExtendTokenExpressionUseCase = ExtendTokenExpressionUseCase(repo, saveMemoryUseCase)
+        tokenTypeExtractor: TokenTypeExtractor
+    ): ExtendTokenExpressionUseCase = ExtendTokenExpressionUseCase(tokenTypeExtractor)
 }
