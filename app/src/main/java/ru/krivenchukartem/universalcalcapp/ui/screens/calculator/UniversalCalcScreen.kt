@@ -44,6 +44,7 @@ object UniversalCalcDestination : NavigationDestination{
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UniversalCalcScreen(
+    navigateToInfoScreen: () -> Unit,
     viewModel: UniversalCalcViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
 ) {
@@ -91,12 +92,17 @@ fun UniversalCalcScreen(
         functionsMap["$i"] = {}
     }
 
+    val complexMap: Map<String, () -> Unit> = mapOf(
+        "i" to {viewModel.updateExpression("i]")}
+    )
+
     val mainPanelMap: Map<String, Map<String, () -> Unit>> = mapOf(
         "digitsMap" to digitsMap,
         "calcThingsSymbolsMap" to calcThingsSymbolsMap,
         "usefulButtonsMap" to usefulButtonsMap,
         "memoryActionsMap" to memoryActionsMap,
         "functionsMap" to functionsMap,
+        "complexMap" to complexMap
     )
 
     val uiState = viewModel.uiState.collectAsState()
@@ -106,7 +112,9 @@ fun UniversalCalcScreen(
             UniversalCalcTopAppBar(
                 title = stringResource(UniversalCalcDestination.titleRes),
                 canNavigateBack = false,
-                modifier = modifier
+                modifier = modifier,
+                canNavigateInfo = true,
+                navigateInfo = navigateToInfoScreen
             )
         }
     ) { innerPadding ->
@@ -214,11 +222,17 @@ fun UniversalCalcPanel(
                             buttonColors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)
                         )
                 }
+                Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))) {
+                    CalcActionPanel(
+                        panelMap.getValue("usefulButtonsMap"), 1, 3,
+                        buttonColors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary)
+                    )
+                    CalcActionPanel(
+                        panelMap.getValue("complexMap"), 1, 1,
+                        buttonColors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary)
+                    )
+                }
 
-                CalcActionPanel(
-                    panelMap.getValue("usefulButtonsMap"), 1, 3,
-                    buttonColors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary)
-                )
             }
             CalcActionPanel(
                 panelMap.getValue("calcThingsSymbolsMap"), 5, 2,

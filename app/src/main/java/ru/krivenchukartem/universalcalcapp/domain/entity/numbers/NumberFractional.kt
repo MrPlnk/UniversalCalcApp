@@ -38,7 +38,7 @@ data class NumberFractional(
         NumberFractional(numerator * other.numerator, divider * other.divider)
 
     override fun div(other: NumberFractional): NumberFractional {
-        require(other.numerator != 0) { "Деление на 0 запрещено" }
+        require(other.numerator != 0) { "Деление на ноль невозможно" }
         return NumberFractional(numerator * other.divider, divider * other.numerator)
     }
 

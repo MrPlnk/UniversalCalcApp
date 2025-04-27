@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">Универсальный калькулятор</string>
-    <string name="universal_calc_screen">Универсальный калькулятор</string>
+    <string name="universal_calc_screen">Калькулятор</string>
     <string name="info_screen">Справка</string>
 
     <string name="navigate_back">Назад</string>
     <string name="navigate_info">Справка</string>
+
+    <string name="info_tab_number_types">Типы чисел…</string>
+    <string name="info_tab_functions">Функции…</string>
+    <string name="info_tab_general">Общая информация</string>
+    <string name="info_tab_memory">Память…</string>
+
+    <string name="memory_buttons">Кнопки, отвечающие за память</string>
 </resources>

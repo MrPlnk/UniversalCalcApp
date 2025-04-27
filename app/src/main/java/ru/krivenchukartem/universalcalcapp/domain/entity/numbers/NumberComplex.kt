@@ -37,7 +37,7 @@ data class NumberComplex(
 
     override fun div(other: NumberComplex): NumberComplex {
         val denominator = other.re * other.re + other.im * other.im
-        require(denominator != 0.0) { "Division by zero in complex number" }
+        require(denominator != 0.0) { "Деление на ноль невозможно" }
 
         return NumberComplex(
             (re * other.re + im * other.im) / denominator,

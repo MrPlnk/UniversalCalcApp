@@ -7,6 +7,9 @@ data class NumberPSystem(
     private val system: Int
 ) : NumberBase<NumberPSystem> {
 
+    val base: Int
+        get() = system
+
     override fun toString(): String{
         return "[$number$delimiter$system]"
     }
@@ -16,28 +19,21 @@ data class NumberPSystem(
     }
 
     override fun plus(other: NumberPSystem): NumberPSystem {
-        require(system == other.system) { "Операции возможны только в одинаковых системах" }
-
         val resultDec = toDecimal() + other.toDecimal()
         return fromDecimal(resultDec, system)
     }
 
     override fun minus(other: NumberPSystem): NumberPSystem {
-        require(system == other.system) { "Операции возможны только в одинаковых системах" }
-
         val resultDec = toDecimal() - other.toDecimal()
         return fromDecimal(resultDec, system)
     }
 
     override fun times(other: NumberPSystem): NumberPSystem {
-        require(system == other.system) { "Операции возможны только в одинаковых системах" }
-
         val resultDec = toDecimal() * other.toDecimal()
         return fromDecimal(resultDec, system)
     }
 
     override fun div(other: NumberPSystem): NumberPSystem {
-        require(system == other.system) { "Операции возможны только в одинаковых системах" }
         require(other.toDecimal() != 0.0) { "Деление на ноль невозможно" }
 
         val resultDec = toDecimal() / other.toDecimal()

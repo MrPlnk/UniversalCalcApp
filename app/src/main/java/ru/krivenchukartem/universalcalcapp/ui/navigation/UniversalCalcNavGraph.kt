@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.NavHost
 import ru.krivenchukartem.universalcalcapp.ui.screens.calculator.UniversalCalcDestination
+import ru.krivenchukartem.universalcalcapp.ui.screens.calculator.UniversalCalcInfoDestination
+import ru.krivenchukartem.universalcalcapp.ui.screens.calculator.UniversalCalcInfoScreen
 import ru.krivenchukartem.universalcalcapp.ui.screens.calculator.UniversalCalcScreen
 
 
@@ -21,7 +23,13 @@ fun UniversalCalcNavGraph(
     ){
         composable(route = UniversalCalcDestination.route){
             UniversalCalcScreen(
+                navigateToInfoScreen = { navController.navigate(UniversalCalcInfoDestination.route) },
 
+            )
+        }
+        composable(UniversalCalcInfoDestination.route) {
+            UniversalCalcInfoScreen(
+                navigateBack = { navController.popBackStack() }
             )
         }
     }
